@@ -6,243 +6,211 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #eef2f7;
+      background: linear-gradient(120deg, #ffe259, #ffa751);
       margin: 0;
+      min-height: 100vh;
     }
 
-    .page {
-      display: none;
-      max-width: 450px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .active {
-      display: block;
-    }
-
-    .box {
+    .container {
+      max-width: 420px;
+      margin: 40px auto;
       background: white;
       padding: 25px;
-      border-radius: 10px;
-      margin-top: 30px;
+      border-radius: 12px;
     }
 
     h1, h2 {
       text-align: center;
-      color: #1f3c88;
+      color: #6a0572;
     }
 
     input, button, select {
       width: 100%;
-      padding: 14px;
+      padding: 15px;
       font-size: 16px;
       margin: 10px 0;
     }
 
     button {
-      background: #1f3c88;
+      background: #6a0572;
       color: white;
       border: none;
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    .link {
-      text-align: center;
-      color: #1f3c88;
-      cursor: pointer;
-      margin-top: 10px;
-      font-weight: bold;
+    .hidden {
+      display: none;
     }
 
     .food {
-      border: 1px solid #ccc;
       padding: 12px;
+      border: 1px solid #ccc;
       margin: 6px 0;
       cursor: pointer;
     }
 
     .food.selected {
-      background: #dbe4ff;
+      background: #cdb4db;
     }
 
-    iframe {
-      width: 100%;
-      height: 200px;
-      margin-top: 10px;
-      border-radius: 8px;
+    .wallet {
+      background: #80ed99;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 
 <body>
 
-<!-- PAGE 1: AUTH -->
-<div class="page active" id="authPage">
+<div class="container" id="auth">
   <h1>Dolly Eatery</h1>
+  <h2>Login / Sign Up</h2>
 
-  <div class="box">
-    <h2>Sign Up / Login</h2>
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
 
-    <input id="email" placeholder="Email address">
-    <input id="phone" placeholder="Phone number">
-    <input id="password" type="password" placeholder="Password">
-
-    <button onclick="signup()">Sign Up</button>
-    <button onclick="login()">Login</button>
-
-    <div class="link" onclick="go('forgotPage')">Forgot Password?</div>
-  </div>
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="login()">Login</button>
 </div>
 
-<!-- FORGOT PASSWORD -->
-<div class="page" id="forgotPage">
-  <div class="box">
-    <h2>Reset Password</h2>
-
-    <input id="fpEmail" placeholder="Registered Email">
-    <input id="fpNewPass" type="password" placeholder="New Password">
-
-    <button onclick="resetPassword()">Reset Password</button>
-
-    <!-- YOUTUBE VIDEO (replace link later) -->
-    <iframe
-  src="https://www.youtube.com/embed/REa6lI9mLLs"
-  allowfullscreen>
-    </iframe>
-
-    <div class="link" onclick="go('authPage')">Back to Login</div>
-  </div>
-</div>
-
-<!-- PAGE 2: LANDING -->
-<div class="page" id="landingPage">
-  <div class="box">
-    <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1"
-         width="100%" style="border-radius:8px">
-
-    <h2>Delicious Meals Await</h2>
-    <button onclick="go('foodPage')">Place Your Order</button>
-
-    <p style="text-align:center;">TikTok • Instagram</p>
-  </div>
-</div>
-
-<!-- PAGE 3: FOOD -->
-<div class="page" id="foodPage">
+<div class="container hidden" id="foodPage">
+  <div class="wallet">Wallet Balance: ₦<span id="balance">0</span></div>
   <h2>Select Food</h2>
 
-  <div class="food" onclick="toggleFood(this)">Burger</div>
-  <div class="food" onclick="toggleFood(this)">Indomie</div>
-  <div class="food" onclick="toggleFood(this)">Rice & Chicken</div>
-  <div class="food" onclick="toggleFood(this)">Jollof Rice</div>
-  <div class="food" onclick="toggleFood(this)">Plantain</div>
-  <div class="food" onclick="toggleFood(this)">Spaghetti</div>
+  <div class="food" onclick="toggleFood(this, 3000)">Burger ₦3,000</div>
+  <div class="food" onclick="toggleFood(this, 2000)">Indomie ₦2,000</div>
+  <div class="food" onclick="toggleFood(this, 5000)">Rice & Chicken ₦5,000</div>
+  <div class="food" onclick="toggleFood(this, 1500)">Plantain ₦1,500</div>
 
-  <button onclick="go('addressPage')">Next</button>
+  <button onclick="goAddress()">Next</button>
 </div>
 
-<!-- PAGE 4: ADDRESS + PAYMENT -->
-<div class="page" id="addressPage">
-  <h2>Delivery Details</h2>
-
-  <input id="address" placeholder="Paste Google Maps address link">
-
-  <select id="payment">
-    <option value="">Choose Payment Method</option>
-    <option>Bank Transfer</option>
-    <option>ATM Card</option>
+<div class="container hidden" id="addressPage">
+  <h2>Delivery Address</h2>
+  <input id="address" placeholder="Enter your home address">
+  <select id="payment" onchange="showPayment()">
+    <option value="">Select Payment</option>
+    <option value="transfer">Bank Transfer</option>
+    <option value="atm">ATM Card</option>
   </select>
+
+  <div id="transferBox" class="hidden">
+    <p><b>Transfer to:</b></p>
+    <p>Bank: Demo Bank</p>
+    <p>Account No: 1234567890</p>
+  </div>
+
+  <div id="atmBox" class="hidden">
+    <input placeholder="Card Number">
+    <input placeholder="Expiry Date">
+    <input placeholder="CVV">
+  </div>
 
   <button onclick="submitOrder()">Submit Order</button>
 </div>
 
-<!-- PAGE 5: SUCCESS -->
-<div class="page" id="successPage">
-  <div class="box">
-    <h2>Order Confirmed ✅</h2>
-    <p>Thank you for ordering from Dolly E3 Eatery.</p>
-    <p>Your food arrives in 1–2 hours.</p>
-  </div>
+<div class="container hidden" id="success">
+  <h2>Order Successful 🎉</h2>
+  <p>Your food will arrive in 1–2 hours.</p>
 </div>
 
 <script>
-function go(id){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
+let total = 0;
+let currentUser = "";
 
 function signup(){
-  let email = email.value;
-  let pass = password.value;
+  let emailVal = email.value;
+  let passVal = password.value;
 
-  if(!email || !pass){
+  if(!emailVal || !passVal){
     alert("Fill all fields");
     return;
   }
 
-  if(localStorage.getItem(email)){
+  if(localStorage.getItem(emailVal)){
     alert("Email already registered");
     return;
   }
 
-  localStorage.setItem(email, pass);
-  go('landingPage');
+  let user = {
+    password: passVal,
+    balance: 50000
+  };
+
+  localStorage.setItem(emailVal, JSON.stringify(user));
+  login();
 }
 
 function login(){
   let emailVal = email.value;
   let passVal = password.value;
 
-  let saved = localStorage.getItem(emailVal);
-  if(!saved){
+  let user = JSON.parse(localStorage.getItem(emailVal));
+  if(!user){
     alert("Account not found");
     return;
   }
 
-  if(saved !== passVal){
-    alert("Incorrect password");
+  if(user.password !== passVal){
+    alert("Wrong password");
     return;
   }
 
-  go('landingPage');
+  currentUser = emailVal;
+  balance.innerText = user.balance;
+  auth.classList.add("hidden");
+  foodPage.classList.remove("hidden");
 }
 
-function resetPassword(){
-  let email = fpEmail.value;
-  let newPass = fpNewPass.value;
+function toggleFood(el, price){
+  el.classList.toggle("selected");
+  total += el.classList.contains("selected") ? price : -price;
+}
 
-  if(!localStorage.getItem(email)){
-    alert("Email not found");
+function goAddress(){
+  if(total <= 0){
+    alert("Select food");
     return;
   }
-
-  localStorage.setItem(email, newPass);
-  alert("Password reset successful");
-  go('authPage');
+  foodPage.classList.add("hidden");
+  addressPage.classList.remove("hidden");
 }
 
-function toggleFood(el){
-  el.classList.toggle('selected');
+function showPayment(){
+  transferBox.classList.add("hidden");
+  atmBox.classList.add("hidden");
+
+  if(payment.value === "transfer") transferBox.classList.remove("hidden");
+  if(payment.value === "atm") atmBox.classList.remove("hidden");
 }
 
 function submitOrder(){
-  let addr = address.value;
+  let addr = address.value.trim();
   let pay = payment.value;
 
-  if(!addr.includes("maps")){
-    alert("Invalid address (use Google Maps link)");
+  if(addr.length < 10){
+    alert("Invalid address");
     return;
   }
 
-  if(!pay){
-    alert("Select payment method");
+  let user = JSON.parse(localStorage.getItem(currentUser));
+  if(user.balance < total){
+    alert("Insufficient wallet balance");
     return;
   }
 
-  go('successPage');
+  user.balance -= total;
+  localStorage.setItem(currentUser, JSON.stringify(user));
+
+  addressPage.classList.add("hidden");
+  success.classList.remove("hidden");
 }
 </script>
 
 </body>
-                                        </html>
+</html>
