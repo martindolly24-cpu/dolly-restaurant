@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dolly E3</title>
+  <title>Dolly Eatery</title>
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6fb;
+      background: #eef2f7;
       margin: 0;
     }
 
     .page {
       display: none;
-      padding: 20px;
-      max-width: 420px;
+      max-width: 450px;
       margin: auto;
+      padding: 20px;
     }
 
     .active {
@@ -22,51 +22,55 @@
     }
 
     .box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 20px;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #1f3c88;
     }
 
     input, button, select {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
+      padding: 14px;
+      font-size: 16px;
+      margin: 10px 0;
     }
 
     button {
-      background: #ff6b00;
+      background: #1f3c88;
       color: white;
       border: none;
       cursor: pointer;
     }
 
-    h1, h2 {
+    .link {
       text-align: center;
-    }
-
-    .logo {
-      text-align: center;
-      font-size: 28px;
+      color: #1f3c88;
+      cursor: pointer;
+      margin-top: 10px;
       font-weight: bold;
     }
 
     .food {
-      border: 1px solid #ddd;
-      padding: 10px;
-      margin: 5px 0;
+      border: 1px solid #ccc;
+      padding: 12px;
+      margin: 6px 0;
       cursor: pointer;
     }
 
     .food.selected {
-      background: #ffe5cc;
+      background: #dbe4ff;
     }
 
-    .social {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 15px;
-      font-weight: bold;
+    iframe {
+      width: 100%;
+      height: 200px;
+      margin-top: 10px;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -75,16 +79,39 @@
 
 <!-- PAGE 1: AUTH -->
 <div class="page active" id="authPage">
-  <div class="logo">🍗 Dolly E3</div>
+  <h1>Dolly Eatery</h1>
 
   <div class="box">
     <h2>Sign Up / Login</h2>
-    <input id="email" placeholder="Email">
-    <input id="phone" placeholder="Phone Number">
+
+    <input id="email" placeholder="Email address">
+    <input id="phone" placeholder="Phone number">
     <input id="password" type="password" placeholder="Password">
+
     <button onclick="signup()">Sign Up</button>
     <button onclick="login()">Login</button>
-    <button onclick="alert('Password reset link sent (demo)')">Forgot Password</button>
+
+    <div class="link" onclick="go('forgotPage')">Forgot Password?</div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD -->
+<div class="page" id="forgotPage">
+  <div class="box">
+    <h2>Reset Password</h2>
+
+    <input id="fpEmail" placeholder="Registered Email">
+    <input id="fpNewPass" type="password" placeholder="New Password">
+
+    <button onclick="resetPassword()">Reset Password</button>
+
+    <!-- YOUTUBE VIDEO (replace link later) -->
+    <iframe
+  src="https://www.youtube.com/embed/REa6lI9mLLs"
+  allowfullscreen>
+    </iframe>
+
+    <div class="link" onclick="go('authPage')">Back to Login</div>
   </div>
 </div>
 
@@ -93,30 +120,24 @@
   <div class="box">
     <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1"
          width="100%" style="border-radius:8px">
-    <h2>Enjoy Delicious Meals</h2>
+
+    <h2>Delicious Meals Await</h2>
     <button onclick="go('foodPage')">Place Your Order</button>
 
-    <div class="social">
-      <div>TikTok</div>
-      <div>Instagram</div>
-    </div>
+    <p style="text-align:center;">TikTok • Instagram</p>
   </div>
 </div>
 
 <!-- PAGE 3: FOOD -->
 <div class="page" id="foodPage">
-  <h2>Select Your Food</h2>
+  <h2>Select Food</h2>
 
-  <div class="food" onclick="selectFood(this)">Burger</div>
-  <div class="food" onclick="selectFood(this)">Indomie</div>
-  <div class="food" onclick="selectFood(this)">Rice & Chicken</div>
-  <div class="food" onclick="selectFood(this)">Rice & Stew</div>
-  <div class="food" onclick="selectFood(this)">Plantain</div>
-  <div class="food" onclick="selectFood(this)">Fried Rice</div>
-  <div class="food" onclick="selectFood(this)">Jollof Rice</div>
-  <div class="food" onclick="selectFood(this)">Spaghetti</div>
-  <div class="food" onclick="selectFood(this)">Chicken & Chips</div>
-  <div class="food" onclick="selectFood(this)">Salad</div>
+  <div class="food" onclick="toggleFood(this)">Burger</div>
+  <div class="food" onclick="toggleFood(this)">Indomie</div>
+  <div class="food" onclick="toggleFood(this)">Rice & Chicken</div>
+  <div class="food" onclick="toggleFood(this)">Jollof Rice</div>
+  <div class="food" onclick="toggleFood(this)">Plantain</div>
+  <div class="food" onclick="toggleFood(this)">Spaghetti</div>
 
   <button onclick="go('addressPage')">Next</button>
 </div>
@@ -126,9 +147,9 @@
   <h2>Delivery Details</h2>
 
   <input id="address" placeholder="Paste Google Maps address link">
-  
+
   <select id="payment">
-    <option value="">Select Payment</option>
+    <option value="">Choose Payment Method</option>
     <option>Bank Transfer</option>
     <option>ATM Card</option>
   </select>
@@ -139,21 +160,21 @@
 <!-- PAGE 5: SUCCESS -->
 <div class="page" id="successPage">
   <div class="box">
-    <h2>Order Successful 🎉</h2>
-    <p>Thanks for ordering from Dolly E3.</p>
-    <p>Your food will arrive in 1–2 hours.</p>
+    <h2>Order Confirmed ✅</h2>
+    <p>Thank you for ordering from Dolly E3 Eatery.</p>
+    <p>Your food arrives in 1–2 hours.</p>
   </div>
 </div>
 
 <script>
-function go(pageId){
+function go(id){
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
+  document.getElementById(id).classList.add('active');
 }
 
 function signup(){
-  let email = document.getElementById('email').value;
-  let pass = document.getElementById('password').value;
+  let email = email.value;
+  let pass = password.value;
 
   if(!email || !pass){
     alert("Fill all fields");
@@ -170,16 +191,16 @@ function signup(){
 }
 
 function login(){
-  let email = document.getElementById('email').value;
-  let pass = document.getElementById('password').value;
+  let emailVal = email.value;
+  let passVal = password.value;
 
-  let saved = localStorage.getItem(email);
+  let saved = localStorage.getItem(emailVal);
   if(!saved){
     alert("Account not found");
     return;
   }
 
-  if(saved !== pass){
+  if(saved !== passVal){
     alert("Incorrect password");
     return;
   }
@@ -187,20 +208,34 @@ function login(){
   go('landingPage');
 }
 
-function selectFood(el){
+function resetPassword(){
+  let email = fpEmail.value;
+  let newPass = fpNewPass.value;
+
+  if(!localStorage.getItem(email)){
+    alert("Email not found");
+    return;
+  }
+
+  localStorage.setItem(email, newPass);
+  alert("Password reset successful");
+  go('authPage');
+}
+
+function toggleFood(el){
   el.classList.toggle('selected');
 }
 
 function submitOrder(){
-  let address = document.getElementById('address').value;
-  let payment = document.getElementById('payment').value;
+  let addr = address.value;
+  let pay = payment.value;
 
-  if(!address.includes("maps")){
-    alert("Invalid address. Use Google Maps link.");
+  if(!addr.includes("maps")){
+    alert("Invalid address (use Google Maps link)");
     return;
   }
 
-  if(!payment){
+  if(!pay){
     alert("Select payment method");
     return;
   }
@@ -210,4 +245,4 @@ function submitOrder(){
 </script>
 
 </body>
-</html>
+                                        </html>
