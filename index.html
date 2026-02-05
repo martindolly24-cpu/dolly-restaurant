@@ -10,7 +10,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
     }
 
@@ -32,7 +32,8 @@
       width: 100%;
       padding: 10px;
       margin: 8px 0;
-      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
 
     button {
@@ -41,29 +42,84 @@
       margin-top: 10px;
       border: none;
       border-radius: 5px;
-      background: #2d89ef;
-      color: white;
+      cursor: pointer;
       font-size: 16px;
     }
 
-    button:last-child {
+    .login-btn {
+      background: #1a73e8;
+      color: white;
+    }
+
+    .register-btn {
       background: #555;
+      color: white;
+    }
+
+    .link {
+      margin-top: 15px;
+      color: #1a73e8;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
-
 </head>
+
 <body>
 
   <div class="box">
-    <h2>Dolly Restaurant</h2>
-    <p>Login to your account</p>
 
-    <input type="text" placeholder="Email or Phone">
-    <input type="password" placeholder="Password">
+    <!-- LOGIN FORM -->
+    <div id="loginBox">
+      <h2>Dolly Restaurant</h2>
+      <p>Login to your account</p>
 
-    <button onclick="alert('Login clicked')">Login</button>
-    <button onclick="alert('Register clicked')">Register</button>
+      <input type="text" placeholder="Email or Phone">
+      <input type="password" placeholder="Password">
+
+      <button class="login-btn" onclick="login()">Login</button>
+
+      <div class="link" onclick="showRegister()">Register instead</div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="registerBox" class="hidden">
+      <h2>Create Account</h2>
+
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <input type="password" placeholder="Confirm Password">
+
+      <button class="register-btn" onclick="register()">Register</button>
+
+      <div class="link" onclick="showLogin()">Back to Login</div>
+    </div>
+
   </div>
+
+  <script>
+    function showRegister() {
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("registerBox").classList.remove("hidden");
+    }
+
+    function showLogin() {
+      document.getElementById("registerBox").classList.add("hidden");
+      document.getElementById("loginBox").classList.remove("hidden");
+    }
+
+    function login() {
+      alert("Login clicked. Backend not connected yet.");
+    }
+
+    function register() {
+      alert("Register clicked. Please fill all details.");
+    }
+  </script>
 
 </body>
 </html>
