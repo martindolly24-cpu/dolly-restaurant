@@ -3,6 +3,8 @@
 <head>
   <title>Dolly Restaurant</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,34 +18,41 @@
 
     .box {
       background: white;
-      padding: 25px;
+      padding: 30px;
       width: 100%;
-      max-width: 350px;
+      max-width: 420px;
       text-align: center;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     h2 {
+      font-size: 34px;
       margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 20px;
+      margin-bottom: 20px;
     }
 
     input {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 5px;
+      padding: 15px;
+      font-size: 20px;
+      margin-bottom: 15px;
+      border-radius: 6px;
       border: 1px solid #ccc;
     }
 
     button {
       width: 100%;
-      padding: 10px;
+      padding: 15px;
+      font-size: 22px;
       margin-top: 10px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 16px;
     }
 
     .login-btn {
@@ -57,10 +66,10 @@
     }
 
     .link {
-      margin-top: 15px;
+      margin-top: 20px;
+      font-size: 18px;
       color: #1a73e8;
       cursor: pointer;
-      font-size: 14px;
     }
 
     .hidden {
@@ -73,7 +82,7 @@
 
   <div class="box">
 
-    <!-- LOGIN FORM -->
+    <!-- LOGIN -->
     <div id="loginBox">
       <h2>Dolly Restaurant</h2>
       <p>Login to your account</p>
@@ -86,7 +95,7 @@
       <div class="link" onclick="showRegister()">Register instead</div>
     </div>
 
-    <!-- REGISTER FORM -->
+    <!-- REGISTER -->
     <div id="registerBox" class="hidden">
       <h2>Create Account</h2>
 
@@ -113,11 +122,11 @@
     }
 
     function login() {
-      alert("Login clicked. Backend not connected yet.");
+      alert("Login clicked");
     }
 
     function register() {
-      alert("Register clicked. Please fill all details.");
+      alert("Register clicked");
     }
   </script>
 
