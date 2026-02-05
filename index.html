@@ -60,6 +60,13 @@ button:hover{opacity:0.9;}
   text-align:center;
   color:#2a5298;
   cursor:pointer;
+  margin-top:10px;
+  font-size:14px;
+}
+
+img{
+  width:100%;
+  border-radius:10px;
 }
 </style>
 </head>
@@ -80,6 +87,8 @@ button:hover{opacity:0.9;}
 
   <input type="password" id="regConfirm" placeholder="Confirm Password">
   <button onclick="register()">Register</button>
+
+  <div class="link" onclick="showLogin()">Already have an account? Login</div>
 </div>
 
 <!-- LOGIN -->
@@ -88,11 +97,20 @@ button:hover{opacity:0.9;}
   <input type="email" id="loginEmail" placeholder="Email">
   <input type="password" id="loginPassword" placeholder="Password">
   <button onclick="login()">Login</button>
+
+  <div class="link" onclick="showRegister()">New here? Register</div>
 </div>
 
-<!-- PLACE ORDER -->
-<div class="box hidden" id="orderBox">
+<!-- WELCOME / IMAGE -->
+<div class="box hidden" id="welcomeBox">
+  <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1">
   <h3>Place Your Order</h3>
+  <button onclick="showOrder()">Start Order</button>
+</div>
+
+<!-- ORDER -->
+<div class="box hidden" id="orderBox">
+  <h3>Select Food</h3>
   <select id="food">
     <option value="">Select food</option>
     <option>Rice</option>
@@ -126,6 +144,16 @@ function togglePassword(id){
   i.type=i.type==="password"?"text":"password";
 }
 
+function showLogin(){
+  registerBox.classList.add("hidden");
+  loginBox.classList.remove("hidden");
+}
+
+function showRegister(){
+  loginBox.classList.add("hidden");
+  registerBox.classList.remove("hidden");
+}
+
 function register(){
   let email=regEmail.value;
   let pass=regPassword.value;
@@ -139,15 +167,14 @@ function register(){
   }
 
   if(localStorage.getItem(email)){
-    alert("This email is already registered. Please login.");
+    alert("Email already registered. Please login.");
     return;
   }
 
   localStorage.setItem(email,pass);
   alert("Registration successful. Please login.");
 
-  registerBox.classList.add("hidden");
-  loginBox.classList.remove("hidden");
+  showLogin();
 }
 
 function login(){
@@ -156,10 +183,15 @@ function login(){
 
   if(localStorage.getItem(email)===pass){
     loginBox.classList.add("hidden");
-    orderBox.classList.remove("hidden");
+    welcomeBox.classList.remove("hidden");
   } else {
     alert("Invalid login details");
   }
+}
+
+function showOrder(){
+  welcomeBox.classList.add("hidden");
+  orderBox.classList.remove("hidden");
 }
 
 function goLocation(){
