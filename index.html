@@ -2,18 +2,68 @@
 <html>
 <head>
   <title>Dolly Restaurant</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .box {
+      background: white;
+      padding: 25px;
+      width: 100%;
+      max-width: 350px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #2d89ef;
+      color: white;
+      font-size: 16px;
+    }
+
+    button:last-child {
+      background: #555;
+    }
+  </style>
+
 </head>
 <body>
 
-<h2>Dolly Restaurant</h2>
+  <div class="box">
+    <h2>Dolly Restaurant</h2>
+    <p>Login to your account</p>
 
-<p>Login to your account</p>
+    <input type="text" placeholder="Email or Phone">
+    <input type="password" placeholder="Password">
 
-<input type="text" placeholder="Email or Phone"><br><br>
-<input type="password" placeholder="Password"><br><br>
-
-<button>Login</button>
-<button>Register</button>
+    <button>Login</button>
+    <button>Register</button>
+  </div>
 
 </body>
 </html>
