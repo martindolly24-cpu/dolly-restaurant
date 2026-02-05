@@ -48,8 +48,32 @@ function register(){
 }
 
 function login(){
-  alert("Login button clicked");
-}
+  function login(){
+  let email = document.getElementById("loginEmail").value;
+  let pass = document.getElementById("loginPass").value;
+
+  if(email === "" || pass === ""){
+    alert("Enter email and password");
+    return;
+  }
+
+  let user = localStorage.getItem(email);
+  if(!user){
+    alert("Account not found. Please register.");
+    return;
+  }
+
+  let data = JSON.parse(user);
+  if(data.password !== pass){
+    alert("Wrong password");
+    return;
+  }
+
+  // SUCCESS
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+  document.getElementById("balance").innerText = data.balance;
+  }
 </script>
 
 </body>
