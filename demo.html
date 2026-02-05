@@ -1,102 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Demo App</title>
+  <title>Demo Login</title>
   <style>
-    body { font-family: Arial; background:#f2f6ff; }
-    .box {
+    body{
+      font-family: Arial;
+      background:#f2f6ff;
+    }
+    .box{
       max-width:350px;
       background:white;
       padding:20px;
       margin:40px auto;
       border-radius:8px;
     }
-    input, button {
+    input, button{
       width:100%;
       padding:10px;
       margin:8px 0;
     }
-    button {
-      background:#1e3c72;
-      color:white;
-      border:none;
+    .hidden{
+      display:none;
     }
-    .hidden { display:none; }
   </style>
 </head>
-
 <body>
 
-<!-- REGISTER -->
 <div class="box" id="registerBox">
-  <h3>Register</h3>
+  <h2>Register</h2>
   <input id="regEmail" placeholder="Email">
   <input id="regPass" type="password" placeholder="Password">
-  <input id="regConfirm" type="password" placeholder="Confirm Password">
   <button onclick="register()">Register</button>
 </div>
 
-<!-- LOGIN -->
 <div class="box hidden" id="loginBox">
-  <h3>Login</h3>
+  <h2>Login</h2>
   <input id="loginEmail" placeholder="Email">
   <input id="loginPass" type="password" placeholder="Password">
   <button onclick="login()">Login</button>
 </div>
 
-<!-- DASHBOARD -->
-<div class="box hidden" id="dashboard">
-  <h3>Welcome</h3>
-  <p>Wallet Balance: ₦<span id="balance"></span></p>
-</div>
-
 <script>
 function register(){
-  let email = regEmail.value;
-  let pass = regPass.value;
-  let confirm = regConfirm.value;
-
-  if(email==="" || pass==="" || confirm===""){
-    alert("Fill all fields"); return;
-  }
-  if(pass !== confirm){
-    alert("Passwords do not match"); return;
-  }
-  if(localStorage.getItem(email)){
-    alert("Account already exists"); return;
-  }
-
-  localStorage.setItem(email, JSON.stringify({
-    password: pass,
-    balance: 50000
-  }));
-
-  alert("Registered successfully. Login now.");
-  registerBox.classList.add("hidden");
-  loginBox.classList.remove("hidden");
+  alert("Register button clicked");
 }
 
 function login(){
-  let email = loginEmail.value;
-  let pass = loginPass.value;
-
-  if(email==="" || pass===""){
-    alert("Enter email and password"); return;
-  }
-
-  let user = localStorage.getItem(email);
-  if(!user){
-    alert("Account not found"); return;
-  }
-
-  let data = JSON.parse(user);
-  if(data.password !== pass){
-    alert("Wrong password"); return;
-  }
-
-  loginBox.classList.add("hidden");
-  dashboard.classList.remove("hidden");
-  balance.innerText = data.balance;
+  alert("Login button clicked");
 }
 </script>
 
