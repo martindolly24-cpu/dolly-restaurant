@@ -1,219 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dolly Eatery</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Dolly Eatery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      background:#f2f6ff;
-    }
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f2f6ff;
+}
 
-    header{
-      background:linear-gradient(90deg,#1e3c72,#2a5298);
-      color:white;
-      text-align:center;
-      padding:20px;
-      font-size:26px;
-      font-weight:bold;
-    }
+header{
+  background:linear-gradient(90deg,#1e3c72,#2a5298);
+  color:white;
+  text-align:center;
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
 
-    .box{
-      max-width:400px;
-      background:white;
-      margin:20px auto;
-      padding:20px;
-      border-radius:10px;
-      box-shadow:0 6px 16px rgba(0,0,0,0.2);
-    }
+.container{
+  max-width:420px;
+  background:white;
+  margin:20px auto;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.2);
+}
 
-    input, button{
-      width:100%;
-      padding:10px;
-      margin:8px 0;
-    }
+input, button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  font-size:16px;
+}
 
-    button{
-      background:#c0392b;
-      color:white;
-      border:none;
-      font-weight:bold;
-      cursor:pointer;
-    }
+button{
+  background:#c0392b;
+  color:white;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    button:hover{
-      opacity:0.9;
-    }
+button:hover{opacity:0.9;}
 
-    .hidden{
-      display:none;
-    }
+.hidden{display:none;}
 
-    .link{
-      text-align:center;
-      color:#2a5298;
-      cursor:pointer;
-      margin-top:10px;
-      font-size:14px;
-    }
+.menu-item{
+  border-bottom:1px solid #ddd;
+  padding:8px 0;
+}
 
-    .password-box{
-      position:relative;
-    }
+.social{
+  text-align:center;
+  margin-top:15px;
+}
 
-    .eye{
-      position:absolute;
-      right:12px;
-      top:12px;
-      cursor:pointer;
-    }
+.social img{
+  width:40px;
+  margin:5px;
+}
 
-    .video-box{
-      max-width:400px;
-      margin:20px auto;
-    }
-
-    img{
-      width:100%;
-      border-radius:10px;
-    }
-
-    .social{
-      text-align:center;
-      margin:10px 0;
-    }
-
-    .social img{
-      width:40px;
-      height:40px;
-      margin:5px;
-    }
-  </style>
+iframe{
+  width:100%;
+  height:220px;
+  border-radius:10px;
+}
+</style>
 </head>
 
 <body>
 
-<!-- YOUTUBE VIDEO (SHOWS FIRST) -->
-<div class="video-box">
-  <iframe
-    width="100%"
-    height="215"
-    src="https://www.youtube.com/embed/REa6lI9mLLs"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
-</div>
-
 <header>Welcome to Dolly Eatery 🍽️</header>
 
-<!-- REGISTER -->
-<div class="box" id="registerBox">
-  <h3>Register</h3>
-
-  <input type="email" id="regEmail" placeholder="Email">
-
-  <div class="password-box">
-    <input type="password" id="regPassword" placeholder="Password">
-    <span class="eye" onclick="togglePassword('regPassword')">👁️</span>
-  </div>
-
-  <input type="password" id="regConfirm" placeholder="Confirm Password">
-
-  <button onclick="register()">Register</button>
-
-  <div class="link" onclick="showLogin()">Already have an account? Login</div>
+<!-- VIDEO (LOGIN PAGE ONLY) -->
+<div class="container" id="videoBox">
+<iframe src="https://www.youtube.com/embed/REa6lI9mLLs" allowfullscreen></iframe>
 </div>
 
-<!-- LOGIN -->
-<div class="box hidden" id="loginBox">
-  <h3>Login</h3>
-
-  <input type="email" id="loginEmail" placeholder="Email">
-  <input type="password" id="loginPassword" placeholder="Password">
-
-  <button onclick="login()">Login</button>
-
-  <div class="link" onclick="showRegister()">New here? Register</div>
+<!-- LOGIN / REGISTER -->
+<div class="container" id="loginBox">
+<h3>Login</h3>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
 </div>
 
-<!-- AFTER LOGIN -->
-<div class="box hidden" id="welcomeBox">
-  <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1">
+<!-- MENU -->
+<div class="container hidden" id="menuBox">
+<h3>Select Your Food</h3>
 
-  <!-- SOCIAL MEDIA -->
-  <div class="social">
-    <a href="https://www.instagram.com/drx.streetwear" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-    </a>
+<div class="menu-item"><input type="checkbox"> Jollof Rice</div>
+<div class="menu-item"><input type="checkbox"> Fried Rice</div>
+<div class="menu-item"><input type="checkbox"> White Rice & Stew</div>
+<div class="menu-item"><input type="checkbox"> Chicken</div>
+<div class="menu-item"><input type="checkbox"> Beef</div>
+<div class="menu-item"><input type="checkbox"> Fish</div>
+<div class="menu-item"><input type="checkbox"> Shawarma</div>
+<div class="menu-item"><input type="checkbox"> Burger</div>
+<div class="menu-item"><input type="checkbox"> Pizza</div>
+<div class="menu-item"><input type="checkbox"> Indomie</div>
+<div class="menu-item"><input type="checkbox"> Spaghetti</div>
+<div class="menu-item"><input type="checkbox"> Ice Cream</div>
 
-    <a href="https://www.tiktok.com/@dolly759929" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/TikTok_logo.png" alt="TikTok">
-    </a>
-  </div>
+<button onclick="goLocation()">Continue</button>
 
-  <h3>Place Your Order</h3>
-  <button onclick="placeOrder()">Place Order</button>
+<div class="social">
+<a href="https://instagram.com/drx.streetwear" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
+</a>
+<a href="https://tiktok.com/@dolly759929" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/08/TikTok_logo.svg">
+</a>
+</div>
+</div>
+
+<!-- LOCATION -->
+<div class="container hidden" id="locationBox">
+<h3>Enter Your Location</h3>
+<input type="text" placeholder="Street / Area">
+<button onclick="goPayment()">Confirm Location</button>
+</div>
+
+<!-- PAYMENT -->
+<div class="container hidden" id="paymentBox">
+<h3>Payment</h3>
+<p>ATM / Transfer (Demo Only)</p>
+<input type="text" placeholder="Card Number">
+<input type="text" placeholder="Expiry Date">
+<input type="text" placeholder="CVV">
+<button onclick="finishOrder()">Submit Order</button>
+</div>
+
+<!-- SUCCESS -->
+<div class="container hidden" id="successBox">
+<h3>Order Successful ✅</h3>
+<p>Your order has been submitted.</p>
+<p>Delivery time: 1–2 hours.</p>
 </div>
 
 <script>
-  function togglePassword(id){
-    let input = document.getElementById(id);
-    input.type = input.type === "password" ? "text" : "password";
-  }
+function login(){
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("videoBox").classList.add("hidden");
+  document.getElementById("menuBox").classList.remove("hidden");
+}
 
-  function showLogin(){
-    registerBox.classList.add("hidden");
-    loginBox.classList.remove("hidden");
-  }
+function goLocation(){
+  document.getElementById("menuBox").classList.add("hidden");
+  document.getElementById("locationBox").classList.remove("hidden");
+}
 
-  function showRegister(){
-    loginBox.classList.add("hidden");
-    registerBox.classList.remove("hidden");
-  }
+function goPayment(){
+  document.getElementById("locationBox").classList.add("hidden");
+  document.getElementById("paymentBox").classList.remove("hidden");
+}
 
-  function register(){
-    let email = regEmail.value;
-    let pass = regPassword.value;
-    let confirm = regConfirm.value;
-
-    if(email === "" || pass === "" || confirm === ""){
-      alert("Email is required");
-      return;
-    }
-
-    if(pass !== confirm){
-      alert("Passwords do not match");
-      return;
-    }
-
-    if(localStorage.getItem(email)){
-      alert("Email already registered. Please login.");
-      return;
-    }
-
-    localStorage.setItem(email, pass);
-    alert("Registration successful. Please login.");
-    showLogin();
-  }
-
-  function login(){
-    let email = loginEmail.value;
-    let pass = loginPassword.value;
-
-    if(localStorage.getItem(email) === pass){
-      loginBox.classList.add("hidden");
-      welcomeBox.classList.remove("hidden");
-    }else{
-      alert("Invalid login details");
-    }
-  }
-
-  function placeOrder(){
-    alert("Order page coming next 😄");
-  }
+function finishOrder(){
+  document.getElementById("paymentBox").classList.add("hidden");
+  document.getElementById("successBox").classList.remove("hidden");
+}
 </script>
 
 </body>
