@@ -8,38 +8,57 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 10px;
     }
 
     h2 {
       text-align: center;
+      color: #333;
     }
 
     .box {
       max-width: 400px;
       margin: auto;
-      background: white;
+      background: #ffffff;
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      margin-top: 20px;
     }
 
     input, button {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
 
     button {
-      background: #111;
+      background: linear-gradient(90deg, #ff512f, #dd2476);
       color: white;
       border: none;
       cursor: pointer;
+      font-weight: bold;
     }
 
     button:hover {
-      background: #333;
+      opacity: 0.9;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 10px;
+      color: #dd2476;
+      cursor: pointer;
+      font-size: 14px;
     }
 
     .hidden {
@@ -54,21 +73,22 @@
 </head>
 <body>
 
+<h1>Dolly Restaurant 🍽️</h1>
+
 <!-- REGISTER -->
 <div class="box" id="registerBox">
   <h2>Register</h2>
   <input type="email" id="regEmail" placeholder="Email">
   <input type="tel" id="regPhone" placeholder="Phone Number">
   <input type="password" id="regPassword" placeholder="Password">
-  <input type="password" id="regConfirm" placeholder="Confirm Password">
-  <button onclick="register()">Register</button>
+  <button onclick="sendRegisterOTP()">Register</button>
 </div>
 
-<!-- REGISTER SUCCESS -->
-<div class="box hidden" id="successBox">
-  <h2>✅ Registration Complete</h2>
-  <p style="text-align:center;">You can now log in.</p>
-  <button onclick="showLogin()">Go to Login</button>
+<!-- OTP VERIFY -->
+<div class="box hidden" id="otpBox">
+  <h2>Enter OTP</h2>
+  <input type="number" id="otpInput" placeholder="Enter OTP">
+  <button onclick="verifyOTP()">Verify OTP</button>
 </div>
 
 <!-- LOGIN -->
@@ -77,11 +97,27 @@
   <input type="email" id="loginEmail" placeholder="Email">
   <input type="password" id="loginPassword" placeholder="Password">
   <button onclick="login()">Login</button>
+  <div class="link" onclick="showForgot()">Forgot password?</div>
+</div>
+
+<!-- FORGOT PASSWORD -->
+<div class="box hidden" id="forgotBox">
+  <h2>Reset Password</h2>
+  <input type="email" id="forgotEmail" placeholder="Enter your email">
+  <button onclick="sendResetOTP()">Send OTP</button>
+</div>
+
+<!-- RESET PASSWORD -->
+<div class="box hidden" id="resetBox">
+  <h2>New Password</h2>
+  <input type="number" id="resetOtpInput" placeholder="Enter OTP">
+  <input type="password" id="newPassword" placeholder="New Password">
+  <button onclick="resetPassword()">Reset Password</button>
 </div>
 
 <!-- MENU -->
 <div class="box hidden" id="menuBox">
-  <h2>Dolly Restaurant Menu</h2>
+  <h2>Menu</h2>
 
   <div class="menu-item">
     <strong>Chicken</strong><br>
@@ -100,50 +136,82 @@
     ₦3,000
     <button onclick="order('Rice')">Order</button>
   </div>
-
 </div>
 
 <script>
   let savedEmail = "";
   let savedPassword = "";
+  let generatedOTP = "";
 
-  function register() {
-    let email = document.getElementById("regEmail").value;
-    let phone = document.getElementById("regPhone").value;
-    let password = document.getElementById("regPassword").value;
-    let confirm = document.getElementById("regConfirm").value;
+  function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000);
+  }
 
-    if (email === "" || phone === "" || password === "" || confirm === "") {
+  function sendRegisterOTP() {
+    let email = regEmail.value;
+    let phone = regPhone.value;
+    let password = regPassword.value;
+
+    if (email === "" || phone === "" || password === "") {
       alert("Please fill all details.");
-      return;
-    }
-
-    if (password !== confirm) {
-      alert("Passwords do not match.");
       return;
     }
 
     savedEmail = email;
     savedPassword = password;
+    generatedOTP = generateOTP();
 
-    document.getElementById("registerBox").classList.add("hidden");
-    document.getElementById("successBox").classList.remove("hidden");
+    alert("Your OTP is: " + generatedOTP); // SIMULATED EMAIL OTP
+
+    registerBox.classList.add("hidden");
+    otpBox.classList.remove("hidden");
   }
 
-  function showLogin() {
-    document.getElementById("successBox").classList.add("hidden");
-    document.getElementById("loginBox").classList.remove("hidden");
+  function verifyOTP() {
+    if (otpInput.value == generatedOTP) {
+      alert("Registration complete!");
+      otpBox.classList.add("hidden");
+      loginBox.classList.remove("hidden");
+    } else {
+      alert("Wrong OTP.");
+    }
   }
 
   function login() {
-    let email = document.getElementById("loginEmail").value;
-    let password = document.getElementById("loginPassword").value;
-
-    if (email === savedEmail && password === savedPassword) {
-      document.getElementById("loginBox").classList.add("hidden");
-      document.getElementById("menuBox").classList.remove("hidden");
+    if (loginEmail.value === savedEmail && loginPassword.value === savedPassword) {
+      loginBox.classList.add("hidden");
+      menuBox.classList.remove("hidden");
     } else {
-      alert("Wrong login details.");
+      alert("Invalid login details.");
+    }
+  }
+
+  function showForgot() {
+    loginBox.classList.add("hidden");
+    forgotBox.classList.remove("hidden");
+  }
+
+  function sendResetOTP() {
+    if (forgotEmail.value !== savedEmail) {
+      alert("Email not found.");
+      return;
+    }
+
+    generatedOTP = generateOTP();
+    alert("Your reset OTP is: " + generatedOTP);
+
+    forgotBox.classList.add("hidden");
+    resetBox.classList.remove("hidden");
+  }
+
+  function resetPassword() {
+    if (resetOtpInput.value == generatedOTP) {
+      savedPassword = newPassword.value;
+      alert("Password reset successful!");
+      resetBox.classList.add("hidden");
+      loginBox.classList.remove("hidden");
+    } else {
+      alert("Wrong OTP.");
     }
   }
 
