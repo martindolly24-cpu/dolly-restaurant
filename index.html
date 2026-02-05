@@ -1,90 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Dolly Eatery</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Dolly Eatery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#f2f6ff;
-}
-  
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#f2f6ff;
+    }
 
-header{
-  background:linear-gradient(90deg,#1e3c72,#2a5298);
-  color:white;
-  text-align:center;
-  padding:20px;
-  font-size:26px;
-  font-weight:bold;
-}
+    header{
+      background:linear-gradient(90deg,#1e3c72,#2a5298);
+      color:white;
+      text-align:center;
+      padding:20px;
+      font-size:26px;
+      font-weight:bold;
+    }
 
-.box{
-  max-width:400px;
-  background:white;
-  margin:20px auto;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 6px 16px rgba(0,0,0,0.2);
-}
+    .box{
+      max-width:400px;
+      background:white;
+      margin:20px auto;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.2);
+    }
 
-input, select, button{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-}
+    input, button{
+      width:100%;
+      padding:10px;
+      margin:8px 0;
+    }
 
-button{
-  background:#c0392b;
-  color:white;
-  border:none;
-  font-weight:bold;
-  cursor:pointer;
-}
+    button{
+      background:#c0392b;
+      color:white;
+      border:none;
+      font-weight:bold;
+      cursor:pointer;
+    }
 
-button:hover{opacity:0.9;}
+    button:hover{
+      opacity:0.9;
+    }
 
-.hidden{display:none;}
+    .hidden{
+      display:none;
+    }
 
-.password-box{position:relative;}
-.eye{
-  position:absolute;
-  right:12px;
-  top:12px;
-  cursor:pointer;
-}
+    .link{
+      text-align:center;
+      color:#2a5298;
+      cursor:pointer;
+      margin-top:10px;
+      font-size:14px;
+    }
 
-.link{
-  text-align:center;
-  color:#2a5298;
-  cursor:pointer;
-  margin-top:10px;
-  font-size:14px;
-}
+    .password-box{
+      position:relative;
+    }
 
-img{
-  width:40px;
-  height:40px;
-  margin:5px;
-}
-</style>
+    .eye{
+      position:absolute;
+      right:12px;
+      top:12px;
+      cursor:pointer;
+    }
+
+    img{
+      width:100%;
+      border-radius:10px;
+    }
+
+    .social{
+      text-align:center;
+      margin:10px 0;
+    }
+
+    .social img{
+      width:40px;
+      height:40px;
+      margin:5px;
+    }
+  </style>
 </head>
 
 <body>
-<a href="https://www.instagram.com/dolly759929" target="_blank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram logo">
-</a>
-<a href="https://www.tiktok.com/@drx.streetwear" target="_blank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/TikTok_logo.svg" alt="TikTok logo">
-</a>
+
 <header>Welcome to Dolly Eatery 🍽️</header>
 
 <!-- REGISTER -->
 <div class="box" id="registerBox">
   <h3>Register</h3>
+
   <input type="email" id="regEmail" placeholder="Email">
 
   <div class="password-box">
@@ -93,6 +105,7 @@ img{
   </div>
 
   <input type="password" id="regConfirm" placeholder="Confirm Password">
+
   <button onclick="register()">Register</button>
 
   <div class="link" onclick="showLogin()">Already have an account? Login</div>
@@ -101,126 +114,91 @@ img{
 <!-- LOGIN -->
 <div class="box hidden" id="loginBox">
   <h3>Login</h3>
+
   <input type="email" id="loginEmail" placeholder="Email">
   <input type="password" id="loginPassword" placeholder="Password">
+
   <button onclick="login()">Login</button>
 
   <div class="link" onclick="showRegister()">New here? Register</div>
 </div>
 
-<!-- WELCOME / IMAGE -->
+<!-- AFTER LOGIN -->
 <div class="box hidden" id="welcomeBox">
   <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1">
+
+  <!-- SOCIAL MEDIA -->
+  <div class="social">
+    <a href="https://www.instagram.com/drx.streetwear" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+    </a>
+
+    <a href="https://www.tiktok.com/@dolly759929" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/TikTok_logo.svg" alt="TikTok">
+    </a>
+  </div>
+
   <h3>Place Your Order</h3>
-  <button onclick="showOrder()">Start Order</button>
-</div>
-
-<!-- ORDER -->
-<div class="box hidden" id="orderBox">
-  <h3>Select Food</h3>
-  <select id="food">
-    <option value="">Select food</option>
-    <option>Rice</option>
-    <option>Beans</option>
-    <option>Chicken</option>
-    <option>Burger</option>
-    <option>Pizza</option>
-    <option>indomi</option>
-  </select>
-  <button onclick="goLocation()">Next</button>
-</div>
-
-<!-- LOCATION -->
-<div class="box hidden" id="locationBox">
-  <h3>Your Location</h3>
-  <input type="text" id="userLocation" placeholder="Enter your address">
-  <button onclick="goPayment()">Next</button>
-</div>
-
-<!-- PAYMENT -->
-<div class="box hidden" id="paymentBox">
-  <h3>Payment (Test)</h3>
-  <input placeholder="ATM Card Number">
-  <input placeholder="Expiry Date">
-  <input placeholder="CVV">
-  <button onclick="finish()">Confirm Order</button>
+  <button onclick="startOrder()">Start Order</button>
 </div>
 
 <script>
-function togglePassword(id){
-  let i=document.getElementById(id);
-  i.type=i.type==="password"?"text":"password";
-}
-
-function showLogin(){
-  registerBox.classList.add("hidden");
-  loginBox.classList.remove("hidden");
-}
-
-function showRegister(){
-  loginBox.classList.add("hidden");
-  registerBox.classList.remove("hidden");
-}
-
-function register(){
-  let email=regEmail.value;
-  let pass=regPassword.value;
-  let conf=regConfirm.value;
-
-  if(!email||!pass||!conf){
-    alert("Email is required"); return;
-  }
-  if(pass!==conf){
-    alert("Passwords do not match"); return;
+  function togglePassword(id){
+    let input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
   }
 
-  if(localStorage.getItem(email)){
-    alert("Email already registered. Please login.");
-    return;
+  function showLogin(){
+    registerBox.classList.add("hidden");
+    loginBox.classList.remove("hidden");
   }
 
-  localStorage.setItem(email,pass);
-  alert("Registration successful. Please login.");
-
-  showLogin();
-}
-
-function login(){
-  let email=loginEmail.value;
-  let pass=loginPassword.value;
-
-  if(localStorage.getItem(email)===pass){
+  function showRegister(){
     loginBox.classList.add("hidden");
-    welcomeBox.classList.remove("hidden");
-  } else {
-    alert("Invalid login details");
+    registerBox.classList.remove("hidden");
   }
-}
 
-function showOrder(){
-  welcomeBox.classList.add("hidden");
-  orderBox.classList.remove("hidden");
-}
+  function register(){
+    let email = regEmail.value;
+    let pass = regPassword.value;
+    let confirm = regConfirm.value;
 
-function goLocation(){
-  if(food.value===""){
-    alert("Select a food"); return;
+    if(email === "" || pass === "" || confirm === ""){
+      alert("Email is required");
+      return;
+    }
+
+    if(pass !== confirm){
+      alert("Passwords do not match");
+      return;
+    }
+
+    if(localStorage.getItem(email)){
+      alert("Email already registered. Please login.");
+      return;
+    }
+
+    localStorage.setItem(email, pass);
+    alert("Registration successful. Please login.");
+
+    showLogin();
   }
-  orderBox.classList.add("hidden");
-  locationBox.classList.remove("hidden");
-}
 
-function goPayment(){
-  if(userLocation.value===""){
-    alert("Enter your location"); return;
+  function login(){
+    let email = loginEmail.value;
+    let pass = loginPassword.value;
+
+    if(localStorage.getItem(email) === pass){
+      loginBox.classList.add("hidden");
+      welcomeBox.classList.remove("hidden");
+    }else{
+      alert("Invalid login details");
+    }
   }
-  locationBox.classList.add("hidden");
-  paymentBox.classList.remove("hidden");
-}
 
-function finish(){
-  alert("Order placed successfully (test mode). Thank you!");
-}
+  function startOrder(){
+    alert("Order feature coming next 😄");
+  }
 </script>
 
 </body>
