@@ -9,14 +9,14 @@
 body{
   margin:0;
   font-family: Arial, sans-serif;
-  background:#fff5e6;
+  background:#fff4e6;
 }
 
 header{
   background:#ff6b00;
   color:white;
   text-align:center;
-  padding:20px;
+  padding:18px;
   font-size:26px;
   font-weight:bold;
 }
@@ -27,10 +27,10 @@ header{
   margin:20px auto;
   padding:20px;
   border-radius:10px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  box-shadow:0 6px 18px rgba(0,0,0,0.2);
 }
 
-input, button{
+input, select, button{
   width:100%;
   padding:10px;
   margin:8px 0;
@@ -41,28 +41,36 @@ button{
   color:white;
   border:none;
   font-weight:bold;
+  cursor:pointer;
 }
 
 button:hover{opacity:0.9;}
 
 .hidden{display:none;}
 
+.password-box{
+  position:relative;
+}
+
 .eye{
   position:absolute;
-  right:15px;
-  top:15px;
+  right:12px;
+  top:12px;
   cursor:pointer;
 }
 
-.password-box{
-  position:relative;
+.link{
+  text-align:center;
+  color:#ff6b00;
+  cursor:pointer;
+  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<header>Dolly Restaurant 🍗</header>
+<header>Dolly Restaurant 🍽️</header>
 
 <!-- REGISTER -->
 <div class="box" id="registerBox">
@@ -91,11 +99,27 @@ button:hover{opacity:0.9;}
   <input type="email" id="loginEmail" placeholder="Email">
   <input type="password" id="loginPassword" placeholder="Password">
   <button onclick="login()">Login</button>
+  <div class="link" onclick="showForgot()">Forgot password?</div>
+</div>
+
+<!-- FORGOT PASSWORD -->
+<div class="box hidden" id="forgotBox">
+  <h3>Reset Password</h3>
+  <input type="email" id="forgotEmail" placeholder="Enter your email">
+  <button onclick="sendResetOTP()">Send OTP</button>
+</div>
+
+<!-- RESET PASSWORD -->
+<div class="box hidden" id="resetBox">
+  <h3>New Password</h3>
+  <input type="number" id="resetOtp" placeholder="OTP">
+  <input type="password" id="newPassword" placeholder="New Password">
+  <button onclick="resetPassword()">Reset</button>
 </div>
 
 <!-- WELCOME -->
 <div class="box hidden" id="welcomeBox">
-  <img src="https://images.unsplash.com/photo-1604908177522-4294b6b61c31"
+  <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1"
        style="width:100%; border-radius:10px;">
   <h3>Order your dish</h3>
   <button onclick="showLocation()">Order Now</button>
@@ -104,14 +128,14 @@ button:hover{opacity:0.9;}
 <!-- LOCATION -->
 <div class="box hidden" id="locationBox">
   <h3>Your Location</h3>
-  <input type="text" id="location" placeholder="Enter your address">
+  <input type="text" id="userLocation" placeholder="Enter your address">
   <button onclick="showFood()">Continue</button>
 </div>
 
 <!-- FOOD -->
 <div class="box hidden" id="foodBox">
   <h3>Select Food</h3>
-  <select id="food">
+  <select id="foodSelect">
     <option>Rice</option>
     <option>Beans</option>
     <option>Chicken</option>
@@ -135,37 +159,65 @@ button:hover{opacity:0.9;}
 let savedEmail="", savedPassword="", otp="";
 
 function togglePassword(id){
-  let input=document.getElementById(id);
-  input.type=input.type==="password"?"text":"password";
+  let i=document.getElementById(id);
+  i.type=i.type==="password"?"text":"password";
+}
+
+function generateOTP(){
+  return Math.floor(100000 + Math.random()*900000);
 }
 
 function register(){
-  if(!regEmail.value||!regPassword.value||!regConfirm.value){
-    alert("Fill all fields");return;
+  if(!regEmail.value || !regPassword.value || !regConfirm.value){
+    alert("Fill all fields"); return;
   }
-  if(regPassword.value!==regConfirm.value){
-    alert("Passwords do not match");return;
+  if(regPassword.value !== regConfirm.value){
+    alert("Passwords do not match"); return;
   }
-  savedEmail=regEmail.value;
-  savedPassword=regPassword.value;
-  otp=Math.floor(100000+Math.random()*900000);
-  alert("OTP (simulation): "+otp);
+  savedEmail = regEmail.value;
+  savedPassword = regPassword.value;
+  otp = generateOTP();
+  alert("OTP (simulation): " + otp);
   registerBox.classList.add("hidden");
   otpBox.classList.remove("hidden");
 }
 
 function verifyOTP(){
-  if(otpInput.value==otp){
+  if(otpInput.value == otp){
     otpBox.classList.add("hidden");
     loginBox.classList.remove("hidden");
   } else alert("Wrong OTP");
 }
 
 function login(){
-  if(loginEmail.value===savedEmail && loginPassword.value===savedPassword){
+  if(loginEmail.value === savedEmail && loginPassword.value === savedPassword){
     loginBox.classList.add("hidden");
     welcomeBox.classList.remove("hidden");
   } else alert("Invalid login");
+}
+
+function showForgot(){
+  loginBox.classList.add("hidden");
+  forgotBox.classList.remove("hidden");
+}
+
+function sendResetOTP(){
+  if(forgotEmail.value !== savedEmail){
+    alert("Email not found"); return;
+  }
+  otp = generateOTP();
+  alert("Reset OTP (simulation): " + otp);
+  forgotBox.classList.add("hidden");
+  resetBox.classList.remove("hidden");
+}
+
+function resetPassword(){
+  if(resetOtp.value == otp){
+    savedPassword = newPassword.value;
+    alert("Password reset successful");
+    resetBox.classList.add("hidden");
+    loginBox.classList.remove("hidden");
+  } else alert("Wrong OTP");
 }
 
 function showLocation(){
@@ -174,7 +226,10 @@ function showLocation(){
 }
 
 function showFood(){
-  if(!location.value){alert("Enter location");return;}
+  let loc = document.getElementById("userLocation").value;
+  if(loc === ""){
+    alert("Enter your location"); return;
+  }
   locationBox.classList.add("hidden");
   foodBox.classList.remove("hidden");
 }
