@@ -1,54 +1,25 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Demo Login</title>
-  <style>
-    body{
-      font-family: Arial;
-      background:#f2f6ff;
-    }
-    .box{
-      max-width:350px;
-      background:white;
-      padding:20px;
-      margin:40px auto;
-      border-radius:8px;
-    }
-    input, button{
-      width:100%;
-      padding:10px;
-      margin:8px 0;
-    }
-    .hidden{
-      display:none;
-    }
-  </style>
-</head>
-<body>
-
-<div class="box" id="registerBox">
-  <h2>Register</h2>
-  <input id="regEmail" placeholder="Email">
-  <input id="regPass" type="password" placeholder="Password">
-  <button onclick="register()">Register</button>
-</div>
-
-<div class="box hidden" id="loginBox">
-  <h2>Login</h2>
-  <input id="loginEmail" placeholder="Email">
-  <input id="loginPass" type="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-</div>
-
 <script>
 function register(){
+  let email = document.getElementById("regEmail").value;
+  let pass = document.getElementById("regPass").value;
+
+  if(email === "" || pass === ""){
+    alert("Fill all fields");
+    return;
+  }
+
+  let userData = {
+    password: pass,
+    balance: 50000
+  };
+
+  localStorage.setItem(email, JSON.stringify(userData));
+
   document.getElementById("registerBox").classList.add("hidden");
   document.getElementById("loginBox").classList.remove("hidden");
 }
 
 function login(){
-  function login(){
   let email = document.getElementById("loginEmail").value;
   let pass = document.getElementById("loginPass").value;
 
@@ -69,12 +40,8 @@ function login(){
     return;
   }
 
-  // SUCCESS
   document.getElementById("loginBox").classList.add("hidden");
   document.getElementById("dashboard").classList.remove("hidden");
   document.getElementById("balance").innerText = data.balance;
-  }
+}
 </script>
-
-</body>
-</html>
