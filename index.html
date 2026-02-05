@@ -11,6 +11,7 @@ body{
   font-family: Arial, sans-serif;
   background:#f2f6ff;
 }
+  
 
 header{
   background:linear-gradient(90deg,#1e3c72,#2a5298);
@@ -65,14 +66,16 @@ button:hover{opacity:0.9;}
 }
 
 img{
-  width:100%;
-  border-radius:10px;
+  width:40px;
+  height:40px;
+  margin:5px;
 }
 </style>
 </head>
 
 <body>
-
+img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram logo">
+img src="https://upload.wikimedia.org/wikipedia/commons/9/91/TikTok_logo.svg" alt="TikTok logo">
 <header>Welcome to Dolly Eatery 🍽️</header>
 
 <!-- REGISTER -->
@@ -118,6 +121,7 @@ img{
     <option>Chicken</option>
     <option>Burger</option>
     <option>Pizza</option>
+    <option>indomi</option>
   </select>
   <button onclick="goLocation()">Next</button>
 </div>
@@ -160,7 +164,7 @@ function register(){
   let conf=regConfirm.value;
 
   if(!email||!pass||!conf){
-    alert("Fill all fields"); return;
+    alert("Email is required"); return;
   }
   if(pass!==conf){
     alert("Passwords do not match"); return;
