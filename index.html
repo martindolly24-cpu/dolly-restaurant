@@ -1,223 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dolly Restaurant</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Dolly Restaurant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      padding: 20px;
-    }
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#fff5e6;
+}
 
-    h1 {
-      text-align: center;
-      color: #fff;
-      margin-bottom: 10px;
-    }
+header{
+  background:#ff6b00;
+  color:white;
+  text-align:center;
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
 
-    h2 {
-      text-align: center;
-      color: #333;
-    }
+.box{
+  max-width:400px;
+  background:white;
+  margin:20px auto;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
 
-    .box {
-      max-width: 400px;
-      margin: auto;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      margin-top: 20px;
-    }
+input, button{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+}
 
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
+button{
+  background:#ff6b00;
+  color:white;
+  border:none;
+  font-weight:bold;
+}
 
-    button {
-      background: linear-gradient(90deg, #ff512f, #dd2476);
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
+button:hover{opacity:0.9;}
 
-    button:hover {
-      opacity: 0.9;
-    }
+.hidden{display:none;}
 
-    .link {
-      text-align: center;
-      margin-top: 10px;
-      color: #dd2476;
-      cursor: pointer;
-      font-size: 14px;
-    }
+.eye{
+  position:absolute;
+  right:15px;
+  top:15px;
+  cursor:pointer;
+}
 
-    .hidden {
-      display: none;
-    }
-
-    .menu-item {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-    }
-  </style>
+.password-box{
+  position:relative;
+}
+</style>
 </head>
+
 <body>
 
-<h1>Dolly Restaurant 🍽️</h1>
+<header>Dolly Restaurant 🍗</header>
 
 <!-- REGISTER -->
 <div class="box" id="registerBox">
-  <h2>Register</h2>
+  <h3>Proceed</h3>
   <input type="email" id="regEmail" placeholder="Email">
-  <input type="tel" id="regPhone" placeholder="Phone Number">
-  <input type="password" id="regPassword" placeholder="Password">
-  <button onclick="sendRegisterOTP()">Register</button>
+
+  <div class="password-box">
+    <input type="password" id="regPassword" placeholder="Password">
+    <span class="eye" onclick="togglePassword('regPassword')">👁️</span>
+  </div>
+
+  <input type="password" id="regConfirm" placeholder="Confirm Password">
+  <button onclick="register()">Register</button>
 </div>
 
-<!-- OTP VERIFY -->
+<!-- OTP -->
 <div class="box hidden" id="otpBox">
-  <h2>Enter OTP</h2>
-  <input type="number" id="otpInput" placeholder="Enter OTP">
-  <button onclick="verifyOTP()">Verify OTP</button>
+  <h3>Enter OTP</h3>
+  <input type="number" id="otpInput" placeholder="OTP Code">
+  <button onclick="verifyOTP()">Verify</button>
 </div>
 
 <!-- LOGIN -->
 <div class="box hidden" id="loginBox">
-  <h2>Login</h2>
+  <h3>Login</h3>
   <input type="email" id="loginEmail" placeholder="Email">
   <input type="password" id="loginPassword" placeholder="Password">
   <button onclick="login()">Login</button>
-  <div class="link" onclick="showForgot()">Forgot password?</div>
 </div>
 
-<!-- FORGOT PASSWORD -->
-<div class="box hidden" id="forgotBox">
-  <h2>Reset Password</h2>
-  <input type="email" id="forgotEmail" placeholder="Enter your email">
-  <button onclick="sendResetOTP()">Send OTP</button>
+<!-- WELCOME -->
+<div class="box hidden" id="welcomeBox">
+  <img src="https://images.unsplash.com/photo-1604908177522-4294b6b61c31"
+       style="width:100%; border-radius:10px;">
+  <h3>Order your dish</h3>
+  <button onclick="showLocation()">Order Now</button>
 </div>
 
-<!-- RESET PASSWORD -->
-<div class="box hidden" id="resetBox">
-  <h2>New Password</h2>
-  <input type="number" id="resetOtpInput" placeholder="Enter OTP">
-  <input type="password" id="newPassword" placeholder="New Password">
-  <button onclick="resetPassword()">Reset Password</button>
+<!-- LOCATION -->
+<div class="box hidden" id="locationBox">
+  <h3>Your Location</h3>
+  <input type="text" id="location" placeholder="Enter your address">
+  <button onclick="showFood()">Continue</button>
 </div>
 
-<!-- MENU -->
-<div class="box hidden" id="menuBox">
-  <h2>Menu</h2>
+<!-- FOOD -->
+<div class="box hidden" id="foodBox">
+  <h3>Select Food</h3>
+  <select id="food">
+    <option>Rice</option>
+    <option>Beans</option>
+    <option>Chicken</option>
+    <option>Burger</option>
+    <option>Pizza</option>
+    <option>Ice Cream</option>
+  </select>
+  <button onclick="showPayment()">Pay</button>
+</div>
 
-  <div class="menu-item">
-    <strong>Chicken</strong><br>
-    ₦4,000 / ₦6,000
-    <button onclick="order('Chicken')">Order</button>
-  </div>
-
-  <div class="menu-item">
-    <strong>Burger</strong><br>
-    ₦10,000
-    <button onclick="order('Burger')">Order</button>
-  </div>
-
-  <div class="menu-item">
-    <strong>Rice</strong><br>
-    ₦3,000
-    <button onclick="order('Rice')">Order</button>
-  </div>
+<!-- PAYMENT -->
+<div class="box hidden" id="paymentBox">
+  <h3>ATM Payment (Test)</h3>
+  <input placeholder="Card Number">
+  <input placeholder="Expiry Date">
+  <input placeholder="CVV">
+  <button onclick="finish()">Confirm</button>
 </div>
 
 <script>
-  let savedEmail = "";
-  let savedPassword = "";
-  let generatedOTP = "";
+let savedEmail="", savedPassword="", otp="";
 
-  function generateOTP() {
-    return Math.floor(100000 + Math.random() * 900000);
+function togglePassword(id){
+  let input=document.getElementById(id);
+  input.type=input.type==="password"?"text":"password";
+}
+
+function register(){
+  if(!regEmail.value||!regPassword.value||!regConfirm.value){
+    alert("Fill all fields");return;
   }
-
-  function sendRegisterOTP() {
-    let email = regEmail.value;
-    let phone = regPhone.value;
-    let password = regPassword.value;
-
-    if (email === "" || phone === "" || password === "") {
-      alert("Please fill all details.");
-      return;
-    }
-
-    savedEmail = email;
-    savedPassword = password;
-    generatedOTP = generateOTP();
-
-    alert("Your OTP is: " + generatedOTP); // SIMULATED EMAIL OTP
-
-    registerBox.classList.add("hidden");
-    otpBox.classList.remove("hidden");
+  if(regPassword.value!==regConfirm.value){
+    alert("Passwords do not match");return;
   }
+  savedEmail=regEmail.value;
+  savedPassword=regPassword.value;
+  otp=Math.floor(100000+Math.random()*900000);
+  alert("OTP (simulation): "+otp);
+  registerBox.classList.add("hidden");
+  otpBox.classList.remove("hidden");
+}
 
-  function verifyOTP() {
-    if (otpInput.value == generatedOTP) {
-      alert("Registration complete!");
-      otpBox.classList.add("hidden");
-      loginBox.classList.remove("hidden");
-    } else {
-      alert("Wrong OTP.");
-    }
-  }
+function verifyOTP(){
+  if(otpInput.value==otp){
+    otpBox.classList.add("hidden");
+    loginBox.classList.remove("hidden");
+  } else alert("Wrong OTP");
+}
 
-  function login() {
-    if (loginEmail.value === savedEmail && loginPassword.value === savedPassword) {
-      loginBox.classList.add("hidden");
-      menuBox.classList.remove("hidden");
-    } else {
-      alert("Invalid login details.");
-    }
-  }
-
-  function showForgot() {
+function login(){
+  if(loginEmail.value===savedEmail && loginPassword.value===savedPassword){
     loginBox.classList.add("hidden");
-    forgotBox.classList.remove("hidden");
-  }
+    welcomeBox.classList.remove("hidden");
+  } else alert("Invalid login");
+}
 
-  function sendResetOTP() {
-    if (forgotEmail.value !== savedEmail) {
-      alert("Email not found.");
-      return;
-    }
+function showLocation(){
+  welcomeBox.classList.add("hidden");
+  locationBox.classList.remove("hidden");
+}
 
-    generatedOTP = generateOTP();
-    alert("Your reset OTP is: " + generatedOTP);
+function showFood(){
+  if(!location.value){alert("Enter location");return;}
+  locationBox.classList.add("hidden");
+  foodBox.classList.remove("hidden");
+}
 
-    forgotBox.classList.add("hidden");
-    resetBox.classList.remove("hidden");
-  }
+function showPayment(){
+  foodBox.classList.add("hidden");
+  paymentBox.classList.remove("hidden");
+}
 
-  function resetPassword() {
-    if (resetOtpInput.value == generatedOTP) {
-      savedPassword = newPassword.value;
-      alert("Password reset successful!");
-      resetBox.classList.add("hidden");
-      loginBox.classList.remove("hidden");
-    } else {
-      alert("Wrong OTP.");
-    }
-  }
-
-  function order(item) {
-    alert(item + " ordered successfully!");
-  }
+function finish(){
+  alert("Order successful (test mode). Thank you!");
+}
 </script>
 
 </body>
